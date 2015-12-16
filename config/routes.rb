@@ -2,6 +2,9 @@ Rails.application.routes.draw do
   resources :schools, except: [:new, :edit]
   resources :classrooms, except: [:new, :edit]
   resources :teachers, except: [:new, :edit]
+
+  get :login,  controller: 'application'
+  get :logout, controller: 'application'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

@@ -9,7 +9,9 @@ gem 'spring', :group => :development
 
 gem 'active_model_serializers', '~> 0.8.3'
 
-gem 'sqlite3'
+gem 'pg'
+
+gem 'firebase_token_generator'
 
 
 
