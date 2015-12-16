@@ -11,7 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151130043859) do
+ActiveRecord::Schema.define(version: 20151216152440) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "classrooms", force: :cascade do |t|
     t.string   "name"
@@ -20,26 +23,27 @@ ActiveRecord::Schema.define(version: 20151130043859) do
     t.datetime "updated_at", null: false
   end
 
-  add_index "classrooms", ["school_id"], name: "index_classrooms_on_school_id"
+  add_index "classrooms", ["school_id"], name: "index_classrooms_on_school_id", using: :btree
 
   create_table "schools", force: :cascade do |t|
     t.string   "name"
     t.integer  "ipads"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "school_code"
   end
 
   create_table "teachers", force: :cascade do |t|
     t.string   "email"
-    t.string   "password"
     t.string   "auth_token"
     t.boolean  "admin"
     t.integer  "school_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
     t.string   "name"
+    t.string   "password_digest"
   end
 
-  add_index "teachers", ["school_id"], name: "index_teachers_on_school_id"
+  add_index "teachers", ["school_id"], name: "index_teachers_on_school_id", using: :btree
 
 end
