@@ -7,7 +7,7 @@ class ApplicationController < ActionController::API
   def login
     authenticate_with_http_basic do |email, password|
       teacher = Teacher.find_by(email: email)
-      if teacher && teacher.password == password
+      if teacher && teacher.authenticate(password)
         render json: { token: teacher.auth_token }
       elsif !teacher
         render json: { error: 'Email address does not exist in our records' }, status: 401
