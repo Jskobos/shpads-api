@@ -9,6 +9,8 @@ gem 'pg'
 gem 'firebase_token_generator'
 gem 'bcrypt', '~> 3.1.7'
 gem 'rack-cors'
+gem 'rails_12factor', :group => :production
+gem 'puma'
 
 group :development, :test do
   gem 'rspec-rails'

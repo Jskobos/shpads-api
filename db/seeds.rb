@@ -8,7 +8,9 @@
 
 school = School.create(name: "Shanghai 10", ipads: 34)
 
-jared = school.teachers.create(name: "Jared", email: "jared.kobos@ef.com", password: "kobos", admin: true)
-klavier = school.teachers.create(name: "Klavier", email: "klavier.min@ef.com", password: "min", admin: false)
+jared = school.teachers.create(name: "Jared", email: "jared.kobos@ef.com", password: "password",
+  password_confirmation: "password", admin: true)
+klavier = school.teachers.create(name: "Klavier", email: "klavier.min@ef.com",
+  password: "password", password_confirmation: "password", admin: false)
 
 classroom = school.classrooms.create([{name: "Success"}, {name: "Confidence"}, {name: "Adaptable"}])

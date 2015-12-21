@@ -10,15 +10,11 @@ class ApplicationController < ActionController::API
       if teacher && teacher.authenticate(password)
         render json: { token: teacher.auth_token }
       elsif !teacher
-        render json: { error: 'Email address does not exist in our records' }, status: 401
+        render json: { error: 'Email address does not exist in our records' }, status: 403
       else
-        render json: { error: 'Invalid password.' }, status: 401
+        render json: { error: 'Invalid password.' }, status: 403
       end
     end
-  end
-
-  def logout
-
   end
 
   def authenticate_user_from_token
