@@ -9,7 +9,7 @@ class Teacher < ActiveRecord::Base
 
   before_create -> {
     payload = {:uid => String(self.id), :admin => String(self.admin) }
-    firebase = Rails.application.secrets.firebase_key
+    firebase = Rails.application.secrets.firebase_key || ENV["FIREBASE"]
     generator = Firebase::FirebaseTokenGenerator.new(firebase)
     self.auth_token = generator.create_token(payload)
   }
