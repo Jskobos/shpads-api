@@ -4,7 +4,7 @@ source 'https://rubygems.org'
 gem 'rails', '4.2.5'
 gem 'rails-api'
 gem 'spring', :group => :development
-gem 'active_model_serializers', '~> 0.8.3'
+gem 'active_model_serializers'
 gem 'pg'
 gem 'firebase_token_generator'
 gem 'bcrypt', '~> 3.1.7'

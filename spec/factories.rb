@@ -1,6 +1,6 @@
 FactoryGirl.define do
 	factory :school do
-		sequence(:name) { |n| "Person #{n}" }
+		sequence(:name) { |n| "School#{n}" }
 		ipads 34
 	end
 

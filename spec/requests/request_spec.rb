@@ -56,7 +56,13 @@ describe "when making an authenticated get request" do
     get '/teachers/', params, header
 
     expect(response).to have_http_status(200)
-    expect(json["teachers"][0]).to include("name")
+    # !!! No "teachers" at root? What happened from serializers 8 -> 9?
+    expect(json[0]).to include("name")
+
+    get "/teachers/#{teacher.id}", params, header
+
+    expect(response).to have_http_status(200)
+    expect(json).to include("name")
   end
 end
 

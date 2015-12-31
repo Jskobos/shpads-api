@@ -2,7 +2,8 @@ class School < ActiveRecord::Base
   has_many :teachers
   has_many :classrooms
 
-  validates :name, presence: true, length: { within: 3..25 }
+  validates :name, presence: true, length: { within: 3..25 },
+    uniqueness: { case_sensitive: false }, format: { with: /\A\S+\z/}
   validates :ipads, presence: true, numericality: { only_integer: true,
     less_than: 1000, greater_than: 0 }
 

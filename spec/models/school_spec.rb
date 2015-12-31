@@ -1,7 +1,8 @@
 require 'rails_helper'
 
 describe School do
-  let(:school) { FactoryGirl.create(:school) }
+  let(:school)  { FactoryGirl.create(:school) }
+  let(:school2) { FactoryGirl.create(:school) }
 
   subject { school }
 
@@ -29,6 +30,20 @@ describe School do
     end
   end
 
+  describe "with duplicate name" do
+    it "should not be valid" do
+      school2.name = school.name
+      expect(school2).not_to be_valid
+    end
+  end
+
+  describe "with whitespace in the name" do
+    it "should not be valid" do
+      school.name = "shanghai 10"
+      expect(school).not_to be_valid
+    end
+  end
+
   describe "with no ipad count" do
     it "should not be valid" do
       school.ipads = nil
@@ -51,5 +66,4 @@ describe School do
       expect(school.school_code).to be_between(1000,9999)
     end
   end
-
 end
