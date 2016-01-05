@@ -6,11 +6,8 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-school = School.create(name: "Shanghai10", ipads: 34)
+school = School.create!(name: "TestSchool", ipads: 34,
+  classrooms: ["Lazy", "Incompetent", "Selfish"])
 
-jared = school.teachers.create(name: "Jared", email: "jared.kobos@ef.com", password: "password",
-  password_confirmation: "password", admin: true)
-klavier = school.teachers.create(name: "Klavier", email: "klavier.min@ef.com",
-  password: "password", password_confirmation: "password", admin: false)
-
-classroom = school.classrooms.create([{name: "Success"}, {name: "Confidence"}, {name: "Adaptable"}])
+school.teachers.create!(name: "TestAdmin", email: "test@ef.com",
+  password: "password", password_confirmation: "password", admin: true)

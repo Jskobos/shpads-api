@@ -1,6 +1,6 @@
 class School < ActiveRecord::Base
   has_many :teachers
-  has_many :classrooms
+  serialize :classrooms, Array
 
   validates :name, presence: true, length: { within: 3..25 },
     uniqueness: { case_sensitive: false }, format: { with: /\A\S+\z/}

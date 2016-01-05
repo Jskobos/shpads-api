@@ -13,6 +13,12 @@ describe "API Requests" do
     get '/login', params, headers
   end
 
+  def data_request(url)
+    header = { Authorization: "Token token=#{teacher.auth_token}" }
+    params = {}
+    get url, params, header
+  end
+
   let(:teacher)  { FactoryGirl.create(:teacher) }
   let(:teachers) { FactoryGirl.create_list(:teacher, 10) }
 
@@ -51,18 +57,22 @@ describe "API Requests" do
 
 describe "when making an authenticated get request" do
   it "should return the correct data" do
-    header = { Authorization: "Token token=#{teacher.auth_token}" }
-    params = {}
-    get '/teachers/', params, header
+    data_request("/teachers")
 
     expect(response).to have_http_status(200)
-    # !!! No "teachers" at root? What happened from serializers 8 -> 9?
-    expect(json[0]).to include("name")
+    expect(json['teachers'][0]).to include("name")
 
-    get "/teachers/#{teacher.id}", params, header
+    data_request("/teachers/#{teacher.id}")
 
     expect(response).to have_http_status(200)
-    expect(json).to include("name")
+    expect(json['teacher']).to include("name")
+  end
+
+  it "should not return unserialized data" do
+    data_request("/teachers/#{teacher.id}")
+
+    expect(json['teacher']).not_to include("password_digest")
+    expect(json['teacher']).not_to include("auth_token")
   end
 end
 
