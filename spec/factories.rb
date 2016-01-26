@@ -2,12 +2,8 @@ FactoryGirl.define do
 	factory :school do
 		sequence(:name) { |n| "School#{n}" }
 		ipads 34
+		classrooms ["Room 1", "Room 2", "Room 3"]
 	end
-
-  factory :classroom do
-    school
-		sequence(:name) { |n| "Classroom #{n}" }
-  end
 
 	factory :teacher do
 		school

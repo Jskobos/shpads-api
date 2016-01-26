@@ -57,10 +57,10 @@ describe "API Requests" do
 
 describe "when making an authenticated get request" do
   it "should return the correct data" do
-    data_request("/teachers")
+    data_request("/schools")
 
     expect(response).to have_http_status(200)
-    expect(json['teachers'][0]).to include("name")
+    expect(json['schools'][0]).to include("name")
 
     data_request("/teachers/#{teacher.id}")
 

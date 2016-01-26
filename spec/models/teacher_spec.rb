@@ -2,7 +2,8 @@ require 'rails_helper'
 
 describe Teacher do
   before { @user = Teacher.new(email: "example@user.com", name: "Sample User",
-   password: "password", admin: false, school_id: 1) }
+   password: "password", password_confirmation: "password",
+   admin: false, school_id: 1) }
 
   subject { @user }
 
