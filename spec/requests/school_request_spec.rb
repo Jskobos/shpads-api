@@ -13,8 +13,8 @@ describe "Adding and Editing Schools" do
     get url, params, header
   end
 
-  def post_request(url, user, params={})
-    header = { Authorization: "Token token=#{user.auth_token}" }
+  def post_request(url, params={})
+    header = { Authorization: "Token token=#{admin.auth_token}" }
     post url, params, header
   end
 
@@ -46,5 +46,30 @@ describe "Adding and Editing Schools" do
     end
   end
 
+  describe "when creating a new school" do
+    it "should create a new school with valid input" do
+      new_name = "NewSchool"
+      params = { school: { name: new_name, ipads: 34 } }
+      post_request "/schools/", params
+      expect(response).to have_http_status(201)
+      expect(json["school"]["name"]).to include(new_name)
+    end
+
+    it "should reject a school name with whitespace" do
+      new_name = "New School"
+      params = { school: { name: new_name, ipads: 34 } }
+      post_request "/schools/", params
+      expect(response).to have_http_status(422)
+    end
+
+    it "should reject a duplicate school name" do
+      new_name = school.name
+      params = { school: { name: new_name, ipads: 34 } }
+      post_request "/schools/", params
+      puts json
+      expect(response).to have_http_status(422)
+      expect(json["name"]).to include("has already been taken")
+    end
+  end
 
 end
