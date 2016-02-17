@@ -1,6 +1,7 @@
 class TeachersController < ApplicationController
   before_action :set_teacher, only: [:show, :update, :destroy]
   before_filter :authenticate_admin_from_token, only: [:create, :destroy]
+  before_filter :authenticate_user_from_token, except: [:create, :destroy]
 
   # GET /teachers
   # GET /teachers.json

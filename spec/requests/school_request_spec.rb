@@ -50,7 +50,7 @@ describe "Adding and Editing Schools" do
     it "should create a new school with valid input" do
       new_name = "NewSchool"
       params = { school: { name: new_name, ipads: 34 } }
-      post_request "/schools/", params
+      post "/schools/", params
       expect(response).to have_http_status(201)
       expect(json["school"]["name"]).to include(new_name)
     end
@@ -58,14 +58,14 @@ describe "Adding and Editing Schools" do
     it "should reject a school name with whitespace" do
       new_name = "New School"
       params = { school: { name: new_name, ipads: 34 } }
-      post_request "/schools/", params
+      post "/schools/", params
       expect(response).to have_http_status(422)
     end
 
     it "should reject a duplicate school name" do
       new_name = school.name
       params = { school: { name: new_name, ipads: 34 } }
-      post_request "/schools/", params
+      post "/schools/", params
       expect(response).to have_http_status(422)
       expect(json["name"]).to include("has already been taken")
     end

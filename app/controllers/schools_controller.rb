@@ -1,5 +1,6 @@
 class SchoolsController < ApplicationController
   before_action :set_school, only: [:show, :update, :destroy]
+  before_filter :authenticate_user_from_token, except: [:create]
 
   # GET /schools
   # GET /schools.json
@@ -19,7 +20,7 @@ class SchoolsController < ApplicationController
   # POST /schools.json
   def create
     @school = School.new(school_params)
-    @school.classrooms ||= []  
+    @school.classrooms ||= []
 
     if @school.save
       render json: @school, status: :created, location: @school

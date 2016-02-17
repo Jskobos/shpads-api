@@ -2,7 +2,7 @@ class ApplicationController < ActionController::API
   include ActionController::HttpAuthentication::Basic::ControllerMethods
   include ActionController::HttpAuthentication::Token::ControllerMethods
   include ActionController::Serialization
-  before_filter :authenticate_user_from_token, except: [:login]
+  #before_filter :authenticate_user_from_token, except: [:login]
 
   def login
     authenticate_with_http_basic do |email, password|
