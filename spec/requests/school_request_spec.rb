@@ -66,7 +66,6 @@ describe "Adding and Editing Schools" do
       new_name = school.name
       params = { school: { name: new_name, ipads: 34 } }
       post_request "/schools/", params
-      puts json
       expect(response).to have_http_status(422)
       expect(json["name"]).to include("has already been taken")
     end
