@@ -20,8 +20,6 @@ class SchoolsController < ApplicationController
   # POST /schools.json
   def create
     @school = School.new(school_params)
-    @school.classrooms ||= []
-
     if @school.save
       render json: @school, status: :created, location: @school
     else
@@ -56,6 +54,6 @@ class SchoolsController < ApplicationController
     end
 
     def school_params
-      params.require(:school).permit(:name, :ipads, :classrooms)
+      params.require(:school).permit(:name, :ipads, classrooms: [])
     end
 end

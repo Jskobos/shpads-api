@@ -32,6 +32,9 @@ describe "Adding and Editing Schools" do
       expect(response).to have_http_status(204)
       expect(school.classrooms).to include("NEW!!!")
       expect(school.classrooms).to include("Room 1")
+      updated_school = School.find(school.id)
+      expect(updated_school.classrooms).to include("Room 1")
+      expect(updated_school.classrooms).to include("NEW!!!")
     end
   end
 
@@ -49,10 +52,13 @@ describe "Adding and Editing Schools" do
   describe "when creating a new school" do
     it "should create a new school with valid input" do
       new_name = "NewSchool"
-      params = { school: { name: new_name, ipads: 34 } }
+      params = { school: { name: new_name, ipads: 34,
+        classrooms: ["Testroom","Testroom2"] } }
       post "/schools/", params
       expect(response).to have_http_status(201)
       expect(json["school"]["name"]).to include(new_name)
+      expect(json["school"]["ipads"]).to match(34)
+      expect(json["school"]["classrooms"]).to include("Testroom")
     end
 
     it "should reject a school name with whitespace" do
