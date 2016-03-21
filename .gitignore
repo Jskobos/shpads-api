@@ -17,3 +17,6 @@
 
 # Ignore app secrets.
 /config/secrets.yml
+
+# Ignore modules
+node_modules
