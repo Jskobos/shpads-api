@@ -61,6 +61,37 @@ describe "Adding and Editing Teachers" do
   end
 
   describe "Editing a teacher" do
-    
+    it "should update a teacher's password" do
+      new_password = "changepassword"
+      params = { teacher: { password: new_password,
+        password_confirmation: new_password } }
+      put_request("/teachers/#{teacher.id}", user=teacher, params=params)
+      updated_teacher = Teacher.find(teacher.id)
+      expect(response).to have_http_status(204)
+      expect(updated_teacher.authenticate(new_password)).not_to be(false)
+    end
+
+    it "should refuse to edit a password if the confirmation does not match" do
+      old_password = teacher.password
+      new_password = "changepassword"
+      wrong_confirm = "changepassword2"
+      params = { teacher: { password: new_password,
+        password_confirmation: wrong_confirm } }
+      put_request("/teachers/#{teacher.id}", user=teacher, params=params)
+      updated_teacher = Teacher.find(teacher.id)
+      expect(response).to have_http_status(422)
+      expect(updated_teacher.authenticate(new_password)).to be(false)
+      expect(updated_teacher.authenticate(old_password)).not_to be(false)
+    end
+
+    it "should refuse to edit a password if logged in as another user" do
+      new_password = "changepassword"
+      params = { teacher: { password: new_password,
+        password_confirmation: new_password } }
+      put_request("/teachers/#{teacher.id}", user=admin, params=params)
+      updated_teacher = Teacher.find(teacher.id)
+      expect(response).to have_http_status(422)
+      expect(updated_teacher.authenticate(new_password)).to be(false)
+    end
   end
 end

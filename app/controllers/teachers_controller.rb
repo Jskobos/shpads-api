@@ -33,8 +33,10 @@ class TeachersController < ApplicationController
   # PATCH/PUT /teachers/1.json
   def update
     @teacher = Teacher.find(params[:id])
-
-    if @teacher.update(teacher_params)
+    user = authenticate_with_http_token { |token, options| Teacher.find_by(auth_token: token) }
+    if @teacher.id != user.id
+      render json: @teacher.errors, status: :unprocessable_entity
+    elsif @teacher.update(teacher_params)
       head :no_content
     else
       render json: @teacher.errors, status: :unprocessable_entity
