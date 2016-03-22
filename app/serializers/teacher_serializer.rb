@@ -1,5 +1,5 @@
 class TeacherSerializer < ActiveModel::Serializer
-  attributes :id, :name, :admin
+  attributes :id, :name, :admin, :email
 
   class TeacherListSerializer < ActiveModel::Serializer
     attributes :name, :id
